@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#App {
+
+}
+
+#App-Grid {
+  background-color: #fff;
+}
+
+#App-Sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100%;
+  min-width: 275px;
+  background-color: ;
+  background-image: linear-gradient(to bottom,#075769, #000 );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sidebar-help-messages {
+  font: 36px Arial ;
+  color: #fff;
+}
+
+.sidebar-counter {
+  color: #fff;
+}
+
+.sidebar-users {
+  color: #fff;
+}
