@@ -4,19 +4,14 @@ import { Circle } from 'react-shapes'
 
 
 const ActionCircle = (props) => {
-  const { circleItem, onClick } = props;
+  const { item, onClick } = props;
   return(
-    <a href="#" onClick={onClick}>
+    <a id={item.key} onClick={onClick.bind(null, item)}>
       <Circle
-        r={circleItem.radius}
-        fill={circleItem.fillColor}
-        stroke={circleItem.strokeColor}
-        strokeWidth={circleItem.strokeWidth}
-        // radius={Circleitem.radius}
-        // fillColor={item.fillColor}
-        // strokeColor={item.strokeColor}
-        // strokeWidth={item.strokeWidth}
-        // isSelected={item.isSelected}
+        r={50}
+        fill={item.fillColor}
+        stroke={{color: "transparent"}}
+        strokeWidth={3}
       />
     </a>
   );
@@ -24,9 +19,9 @@ const ActionCircle = (props) => {
 };
 
 ActionCircle.propTypes = {
-  circleItem: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  //onClick: PropTypes.function.isRequired
+  onClick: PropTypes.object.isRequired
 }
 
 export default ActionCircle

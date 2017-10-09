@@ -11,7 +11,7 @@ const ActionGrid = (props) => {
           return (
             <ActionCircle
               key={index}
-              circleItem={item}
+              item={item}
               onClick={onClick}
             />
           );
@@ -22,7 +22,8 @@ const ActionGrid = (props) => {
 }
 
 ActionGrid.propTypes = {
-  items: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired,
+  onClick: PropTypes.object.isRequired
 }
 
 
