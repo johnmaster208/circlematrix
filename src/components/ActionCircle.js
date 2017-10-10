@@ -20,8 +20,7 @@ const ActionCircle = (props) => {
 
 ActionCircle.propTypes = {
   item: PropTypes.object.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onClick: PropTypes.object.isRequired
+  onClick: PropTypes.func.isRequired
 }
 
 export default ActionCircle

@@ -1,30 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import ActionGrid from './components/ActionGrid';
 import ActionCircleCounter from './components/ActionCircleCounter';
-import data from './data/circleData';
 import {selectCircle, unSelectCircle} from './actions/circleActions';
+import {socketSelectCircle} from './actions/socketActions';
+
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      items: data,
-      circlesRemaining: 10
-    }
+      items: props.items,
+      circlesRemaining: props.circlesRemaining
+    };
+    this.activateActionCircle = this.activateActionCircle.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({items: nextProps.items})
+  }
 
-  activateActionCircle = (obj) => {
-    if(obj.wasSelectedByMe === false && obj.wasSelectedByOther === false && this.state.circlesRemaining !== 0) {
-      this.setState({circlesRemaining: this.state.circlesRemaining - 1});
-      selectCircle(obj,this.state.items)
+  activateActionCircle(obj) {
+    if(obj.wasSelectedByMe === false && obj.wasSelectedByOther === false && this.props.circlesRemaining !== 0) {
+      this.props.circleWasSelected(obj, this.props.items);
     } else if (obj.wasSelectedByMe === true && obj.wasSelectedByOther === false) {
-      this.setState({circlesRemaining: this.state.circlesRemaining + 1});
-      unSelectCircle(obj, this.state.items)
+      this.props.circleWasUnselected(obj, this.props.items);
     }
-    this.setState({items: this.state.items})
-  };
-
+  }
 
   render() {
     return (
@@ -32,18 +34,33 @@ class App extends React.Component {
       <div id="App-Sidebar" className="col-md-3">
         <h1 className="">CircleMatrix</h1>
         <div className="sidebar-counter">
-          <ActionCircleCounter counter={this.state.circlesRemaining} />
+          <ActionCircleCounter counter={this.props.circlesRemaining} />
         </div>
         <div className="sidebar-users">
-          Users online:
         </div>
       </div>
       <div id="App-Grid" className="col-md-9">
-        <ActionGrid items={this.state.items} onClick={this.activateActionCircle} />
+        <ActionGrid items={this.props.items} onClick={this.activateActionCircle} />
       </div>
     </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return{
+    circlesRemaining: state.circle.circlesRemaining,
+    items: state.circle.items,
+    socket: state.socket
+  }
+}
+
+function mapDispatchToProps(dispatch, items) {
+  return {
+    circleWasSelected: (circleObj, items) => dispatch(selectCircle(circleObj, items)),
+    circleWasUnselected: (circleObj, items) => dispatch(unSelectCircle(circleObj, items)),
+    circleWasSelectedBySocket: (circleObj, items) => dispatch(socketSelectCircle(circleObj, items))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
