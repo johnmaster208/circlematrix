@@ -7,9 +7,9 @@ const ActiveUsers = (props) => {
   return(
     <div>
       Active users:
-      <ul>
+      <ul className="active-users list-group">
         {users.map((item, index) => {
-          return(<li key={index}>{item}</li>)
+          return(<li key={index} className="list-group-item">SocketUser:{item}</li>)
         })}
       </ul>
     </div>

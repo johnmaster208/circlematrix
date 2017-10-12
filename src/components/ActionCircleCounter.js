@@ -1,11 +1,15 @@
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 
 const ActionCircleCounter = (props) => {
   const { counter } = props
 
   return(
-      counter + " circles remaining."
+    <div className="text-center">
+      <div className="circle-counter-number">{counter}</div>
+      <div className="circle-counter-cr">circles remaining</div>
+    </div>
   );
 
 

@@ -4,7 +4,8 @@ import data from '../data/circleData';
 
 export const initialState = {
   items: data,
-  circlesRemaining: 10
+  circlesRemaining: 10,
+  occupiedCircles: []
 };
 
 
@@ -18,7 +19,7 @@ export default function (state = initialState, action){
           wasSelectedByMe: true,
           wasSelectedByOther: false
         }
-        newState.circlesRemaining--
+        newState.circlesRemaining = state.circlesRemaining - 1;
       return newState;
     }
     case CIRCLE_ACTIONS.UNSELECT_CIRCLE:{
@@ -29,7 +30,36 @@ export default function (state = initialState, action){
         wasSelectedByMe: false,
         wasSelectedByOther: false
       }
-      newState.circlesRemaining++
+      newState.circlesRemaining = state.circlesRemaining + 1;
+      return newState;
+    }
+    case CIRCLE_ACTIONS.SOCKET_CIRCLE_SELECTED:{
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.items[action.obj.id] = {
+        id: action.obj.id,
+        fillColor: {color: APP_CONSTANTS.socketSelectedFillColor},
+        wasSelectedByMe: false,
+        wasSelectedByOther: true
+      }
+      newState.circlesRemaining = state.circlesRemaining;
+      return newState;
+    }
+    case CIRCLE_ACTIONS.SOCKET_CIRCLE_UNSELECTED:{
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.items[action.obj.id] = {
+        id: action.obj.id,
+        fillColor: {color: APP_CONSTANTS.unSelectedFillColor},
+        wasSelectedByMe: false,
+        wasSelectedByOther: false
+      }
+      newState.circlesRemaining = state.circlesRemaining;
+      return newState;
+    }
+    case CIRCLE_ACTIONS.RENDER_SOCKET_CIRCLES:{
+      const newState = {
+        ...state,
+        occupiedCircles: action.circles
+      }
       return newState;
     }
     default:{

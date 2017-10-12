@@ -1,22 +1,25 @@
-const socketReducer = (state = [], action) => {
+import { SOCKET_ACTIONS } from '../actions/socketActions';
+import { APP_CONSTANTS } from '../constants';
+
+export const initialState = {
+  status: 'disconnected',
+  connections: []
+};
+
+
+const socketReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
+    case SOCKET_ACTIONS.GET_SOCKET_CONNECTIONS: {
+      const newState = {
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
-      ]
-    case 'TOGGLE_TODO':
-      return state.map(todo =>
-        (todo.id === action.id)
-          ? {...todo, completed: !todo.completed}
-          : todo
-      )
-    default:
+        connections: action.connections
+      }
+      return newState;
+    }
+    default:{
       return state
+    }
+
   }
 }
 

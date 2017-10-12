@@ -23,7 +23,7 @@ const ActionGrid = (props) => {
 
 ActionGrid.propTypes = {
   items: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 }
 
 
