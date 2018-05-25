@@ -1,56 +1,63 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  font-family: sans-serif;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
 }
 
+
+/* #App {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} */
+
 #App-Grid {
-  background-color: #fff;
-  margin: auto;
-  padding: 3% 0 0 5%;
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 2% 0 0 5%;
 }
 
 .app-title {
-  color: #fff;
+    color: #fff;
 }
 
 #App-Sidebar {
-  background-image: linear-gradient(to bottom,#075769, #000 );
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100%;
-  min-width: 275px;
-  margin-bottom: -5000px;
-  padding-bottom: 5000px;
+    background-image: linear-gradient(to bottom, #075769, #000);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100%;
+    margin-bottom: -5000px;
+    padding-bottom: 5000px;
 }
 
 .sidebar-help-messages {
-  font: 36px Arial ;
-  color: #fff;
+    font: 36px Arial;
+    color: #fff;
 }
 
 .sidebar-counter {
-  font-size: 4em;
-  color: #fff;
+    font-size: 4em;
+    color: #fff;
 }
 
 .circle-counter-number {
-  font-size: 2em;
+    font-size: 2em;
 }
 
 .circle-counter-cr {
-  font-size: 1.2em;
-  word-wrap: none;
+    font-size: 1.2em;
+    word-wrap: none;
 }
 
 .sidebar-users {
-  color: #fff;
+    color: #fff;
 }
 
 ul.active-users {
-  color: #000;
+    color: #000;
 }

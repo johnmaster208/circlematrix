@@ -12,7 +12,7 @@ export const initialState = {
 export default function (state = initialState, action){
   switch (action.type) {
     case CIRCLE_ACTIONS.SELECT_CIRCLE:{
-        const newState = JSON.parse(JSON.stringify(state));
+        let newState = JSON.parse(JSON.stringify(state));
         newState.items[action.obj.id] = {
           id: action.obj.id,
           fillColor: {color: APP_CONSTANTS.userSelectedFillColor},
@@ -20,10 +20,14 @@ export default function (state = initialState, action){
           wasSelectedByOther: false
         }
         newState.circlesRemaining = state.circlesRemaining - 1;
+        newState.occupiedCircles = Object.assign([],
+        ...state.occupiedCircles,
+        action.obj.id
+        );
       return newState;
     }
     case CIRCLE_ACTIONS.UNSELECT_CIRCLE:{
-      const newState = JSON.parse(JSON.stringify(state));
+      let newState = JSON.parse(JSON.stringify(state));
       newState.items[action.obj.id] = {
         id: action.obj.id,
         fillColor: {color: APP_CONSTANTS.unSelectedFillColor},
@@ -31,10 +35,11 @@ export default function (state = initialState, action){
         wasSelectedByOther: false
       }
       newState.circlesRemaining = state.circlesRemaining + 1;
+      newState.occupiedCircles.splice(action.obj.id);
       return newState;
     }
     case CIRCLE_ACTIONS.SOCKET_CIRCLE_SELECTED:{
-      const newState = JSON.parse(JSON.stringify(state));
+      let newState = JSON.parse(JSON.stringify(state));
       newState.items[action.obj.id] = {
         id: action.obj.id,
         fillColor: {color: APP_CONSTANTS.socketSelectedFillColor},
@@ -42,10 +47,14 @@ export default function (state = initialState, action){
         wasSelectedByOther: true
       }
       newState.circlesRemaining = state.circlesRemaining;
+      newState.occupiedCircles = Object.assign([],
+      ...state.occupiedCircles,
+      action.obj.id
+      );
       return newState;
     }
     case CIRCLE_ACTIONS.SOCKET_CIRCLE_UNSELECTED:{
-      const newState = JSON.parse(JSON.stringify(state));
+      let newState = JSON.parse(JSON.stringify(state));
       newState.items[action.obj.id] = {
         id: action.obj.id,
         fillColor: {color: APP_CONSTANTS.unSelectedFillColor},
@@ -53,13 +62,18 @@ export default function (state = initialState, action){
         wasSelectedByOther: false
       }
       newState.circlesRemaining = state.circlesRemaining;
+      newState.occupiedCircles.splice(action.obj.id);
       return newState;
     }
-    case CIRCLE_ACTIONS.RENDER_SOCKET_CIRCLES:{
-      const newState = {
-        ...state,
-        occupiedCircles: action.circles
-      }
+    case CIRCLE_ACTIONS.GET_OCCUPIED_CIRCLES:{
+      return state.occupiedCircles;
+    }
+    case CIRCLE_ACTIONS.PUT_OCCUPIED_CIRCLES: {
+      let newState = JSON.parse(JSON.stringify(state));
+      newState.occupiedCircles = Object.assign([],
+        ...state.occupiedCircles,
+        action.circles
+      );
       return newState;
     }
     default:{

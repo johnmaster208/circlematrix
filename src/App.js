@@ -4,34 +4,62 @@ import io from 'socket.io-client';
 import ActionGrid from './components/ActionGrid';
 import ActionCircleCounter from './components/ActionCircleCounter';
 import ActiveUsers from './components/ActiveUsers';
-import {selectCircle, unSelectCircle, socketCircle, unSelectSocketCircle } from './actions/circleActions';
-import {getSocketConnections} from './actions/socketActions';
+import {
+  selectCircle, 
+  unSelectCircle, 
+  socketCircle,
+  unSelectSocketCircle, 
+  getOccupiedCircles, 
+  putOccupiedCircles
+} from './actions/circleActions';
+import {
+  getUserSocketId, 
+  getSocketConnections
+} from './actions/socketActions';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
+    const { 
+      getUserSocketId, 
+      getActiveSocketConnections, 
+      putOccupiedCircles, 
+      socketCircleWasSelected, 
+      socketCircleWasUnselected
+    } = this.props;
     this.socket = io('http://localhost:5000',{reconnection:false});
     this.activateActionCircle = this.activateActionCircle.bind(this);
-  }
-
-  componentWillMount() {
-    this.socket.on('activeSocketConnections', (connections) => {
-      this.props.getActiveSocketConnections(connections);
+    this.socket.on('pushUserSocketId', (id) => {
+      getUserSocketId(id);
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
+    this.socket.on('activeSocketConnections', (connections) => {
+      getActiveSocketConnections(connections);
+    });
+    this.socket.on('peerCirclesLoaded', (circles) => {
+      putOccupiedCircles(circles);
+    });
     this.socket.on('addSocketCircleById', (id) => {
-      console.log(id);
-      this.props.socketCircleWasSelected(this.props.items[id]);
+      socketCircleWasSelected(this.props.items[id]);
     });
     this.socket.on('removeSocketCircleById', (id) => {
-      console.log(id);
-      this.props.socketCircleWasUnselected(this.props.items[id]);
+      socketCircleWasUnselected(this.props.items[id]);
     });
   }
 
+  componentDidMount() {
+    this.socket.emit('bootstrapCircleMatrix'); 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { items, occupiedCircles, socketCircleWasSelected, currentUserSocketId } = nextProps;
+    if(occupiedCircles.length > 0) {
+      occupiedCircles.map((circleId) => {
+        socketCircleWasSelected(items[circleId]);
+      });
+    }
+  }
+  
   componentWillUnmount() {
     this.socket.disconnect();
   }
@@ -48,37 +76,26 @@ class App extends React.Component {
 
 
   render() {
+    const { circlesRemaining, connectedUsers, items } = this.props; 
     return (
     <div id="App">
-      <div id="App-Sidebar" className="col-xs-12 col-md-3">
+      <div id="App-Sidebar" className="col-xs-12 col-sm-4">
         <h1 className="app-title">CircleMatrix</h1>
         <div className="sidebar-counter">
-          <ActionCircleCounter counter={this.props.circlesRemaining} />
+          <ActionCircleCounter counter={circlesRemaining} />
         </div>
         <div className="sidebar-users">
-          <ActiveUsers users={this.props.connectedUsers} />
+          <ActiveUsers users={connectedUsers} />
         </div>
       </div>
-      <div id="App-Grid" className="row col-xs-12 col-md-9">
+      <div id="App-Grid" className="col-xs-12 col-sm-9">
         <ActionGrid
-          items={this.props.items}
+          items={items}
           onClick={this.activateActionCircle}
-          // {...this.state}
         />
       </div>
     </div>
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return{
-    items: state.circle.items,
-    circlesRemaining: state.circle.circlesRemaining,
-    occupiedCircles: state.circle.occupiedCircles,
-    connectedUsers: state.socket.connections,
-    activeSocketConnections: state.socket.connections.length
-    //socket: state.socket
   }
 }
 
@@ -88,7 +105,22 @@ function mapDispatchToProps(dispatch, items) {
     circleWasUnselected: (circleObj) => dispatch(unSelectCircle(circleObj)),
     socketCircleWasSelected: (circleObj) => dispatch(socketCircle(circleObj)),
     socketCircleWasUnselected: (circleObj) => dispatch(unSelectSocketCircle(circleObj)),
-    getActiveSocketConnections: (connections) => dispatch(getSocketConnections(connections))
+    getOccupiedCircles: () => dispatch(getOccupiedCircles()),
+    putOccupiedCircles: (circles) => dispatch(putOccupiedCircles(circles)),
+    getUserSocketId: (id) => dispatch(getUserSocketId(id)),
+    getActiveSocketConnections: (connections) => dispatch(getSocketConnections(connections)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    items: state.circle.items,
+    circlesRemaining: state.circle.circlesRemaining,
+    occupiedCircles: state.circle.occupiedCircles,
+    connectedUsers: state.socket.connections,
+    currentUserSocketId: state.socket.id,
+    activeSocketConnections: state.socket.connections.length
+    //socket: state.socket
   }
 }
 
