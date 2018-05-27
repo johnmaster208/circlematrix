@@ -28,5 +28,26 @@
         "eject": "react-scripts eject",
         "server": "node ./src/SocketServer.js",
         "server-debug": "node --inspect ./src/SocketServer.js"
+    },
+    "devDependencies": {
+        "enzyme": "^3.3.0",
+        "enzyme-adapter-react-16": "^1.1.1",
+        "sinon": "^5.0.10"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx}",
+            "!<rootDir>/node_modules/",
+            "!<rootDir>/path/to/dir/"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 90,
+                "functions": 90,
+                "lines": 90,
+                "statements": 90
+            }
+        },
+        "coverageReporters": ["text"]
     }
 }
