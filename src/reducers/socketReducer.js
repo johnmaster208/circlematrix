@@ -1,25 +1,49 @@
-import { SOCKET_ACTIONS } from '../actions/socketActions';
-import { APP_CONSTANTS } from '../constants';
+import { ACTION } from '../constants/index.js';
 
 export const initialState = {
   id: undefined,
-  connections: []
+  connections: [],
+  modal: {
+    key: "UNKNOWN",
+    show: false
+  }
 };
-
 
 const socketReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SOCKET_ACTIONS.GET_SOCKET_ID: {
-      const newState = {
+    case ACTION.GET_SOCKET_ID: {
+      let newState = {
         ...state,
         id: action.id
       }
       return newState;
     }
-    case SOCKET_ACTIONS.GET_SOCKET_CONNECTIONS: {
-      const newState = {
+    case ACTION.GET_SOCKET_CONNECTIONS: {
+      let newState = {
         ...state,
         connections: action.connections
+      }
+      return newState;
+    }
+    case ACTION.SHOW_MODAL_ALERT: {
+      let newState = {
+        ...state,
+        modal: {
+          ...state.modal,
+          key: action.modal,
+          show: action.show
+        }
+      }
+      return newState;
+    }
+    case ACTION.HIDE_MODAL_ALERT: {
+      let newState = {
+        ...state,
+        modal: {
+          ...state.modal,
+          key: action.modal,
+          show: action.show
+        }
       }
       return newState;
     }

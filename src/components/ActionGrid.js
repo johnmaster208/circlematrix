@@ -13,6 +13,7 @@ const ActionGrid = (props) => {
               key={index}
               item={item}
               onClick={onClick}
+              isOccupied={item.wasSelectedByMe === true || item.wasSelectedByOther === true}
             />
           );
         })

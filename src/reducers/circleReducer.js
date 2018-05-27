@@ -1,5 +1,4 @@
-import { CIRCLE_ACTIONS } from '../actions/circleActions';
-import { APP_CONSTANTS } from '../constants';
+import { APP_CONSTANTS, ACTION } from '../constants/index.js';
 import data from '../data/circleData';
 
 export const initialState = {
@@ -11,7 +10,7 @@ export const initialState = {
 
 export default function (state = initialState, action){
   switch (action.type) {
-    case CIRCLE_ACTIONS.SELECT_CIRCLE:{
+    case ACTION.SELECT_CIRCLE:{
         let newState = JSON.parse(JSON.stringify(state));
         newState.items[action.obj.id] = {
           id: action.obj.id,
@@ -26,7 +25,7 @@ export default function (state = initialState, action){
         );
       return newState;
     }
-    case CIRCLE_ACTIONS.UNSELECT_CIRCLE:{
+    case ACTION.UNSELECT_CIRCLE:{
       let newState = JSON.parse(JSON.stringify(state));
       newState.items[action.obj.id] = {
         id: action.obj.id,
@@ -38,7 +37,7 @@ export default function (state = initialState, action){
       newState.occupiedCircles.splice(action.obj.id);
       return newState;
     }
-    case CIRCLE_ACTIONS.SOCKET_CIRCLE_SELECTED:{
+    case ACTION.SOCKET_CIRCLE_SELECTED:{
       let newState = JSON.parse(JSON.stringify(state));
       newState.items[action.obj.id] = {
         id: action.obj.id,
@@ -53,7 +52,7 @@ export default function (state = initialState, action){
       );
       return newState;
     }
-    case CIRCLE_ACTIONS.SOCKET_CIRCLE_UNSELECTED:{
+    case ACTION.SOCKET_CIRCLE_UNSELECTED:{
       let newState = JSON.parse(JSON.stringify(state));
       newState.items[action.obj.id] = {
         id: action.obj.id,
@@ -65,10 +64,10 @@ export default function (state = initialState, action){
       newState.occupiedCircles.splice(action.obj.id);
       return newState;
     }
-    case CIRCLE_ACTIONS.GET_OCCUPIED_CIRCLES:{
+    case ACTION.GET_OCCUPIED_CIRCLES:{
       return state.occupiedCircles;
     }
-    case CIRCLE_ACTIONS.PUT_OCCUPIED_CIRCLES: {
+    case ACTION.PUT_OCCUPIED_CIRCLES: {
       let newState = JSON.parse(JSON.stringify(state));
       newState.occupiedCircles = Object.assign([],
         ...state.occupiedCircles,

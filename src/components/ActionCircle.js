@@ -14,6 +14,7 @@ const ActionCircle = (props) => {
           fill={item.fillColor}
           stroke={{color: "transparent"}}
           strokeWidth={3}
+          className={"animated " + (isOccupied ? "jello ": "pulse") }
         />
       </a>
     );
@@ -21,8 +22,8 @@ const ActionCircle = (props) => {
 
 ActionCircle.propTypes = {
   item: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired
-  //onEmit: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  isOccupied: PropTypes.bool.isRequired
 }
 
 export default ActionCircle

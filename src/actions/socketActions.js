@@ -1,24 +1,36 @@
+import { ACTION } from '../constants/index.js'
 
-export const SOCKET_ACTIONS = {
-  GET_SOCKET_ID: "GET_SOCKET_ID",
-  GET_SOCKET_CONNECTIONS: "GET_SOCKET_CONNECTIONS"
-}
-
-export function getUserSocketId(id) {
-  return dispatch => {
-    dispatch({
-      type: SOCKET_ACTIONS.GET_SOCKET_ID,
-      id
-    });
+const socketActions = {
+  getUserSocketId: (id) => {
+    return dispatch => {
+      dispatch({
+        type: ACTION.GET_SOCKET_ID,
+        id
+      });
+    }
+  },
+  getSocketConnections: (connections) => {
+    return dispatch => {
+      dispatch({
+        type: ACTION.GET_SOCKET_CONNECTIONS,
+        connections
+      })
+    }
+  },
+  showModalAlert: (key) => {
+    return {
+      type: ACTION.SHOW_MODAL_ALERT,
+      modal: key,
+      show: true
+    };
+  },
+  hideModalAlert: (key) => {
+    return {
+      type: ACTION.HIDE_MODAL_ALERT,
+      modal: key,
+      show: false
+    };
   }
-}
+};
 
-export function getSocketConnections(connections) {
-  //console.log(connections);
-  return dispatch => {
-    dispatch({
-      type: SOCKET_ACTIONS.GET_SOCKET_CONNECTIONS,
-      connections
-    })
-  }
-}
+export default socketActions;
