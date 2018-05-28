@@ -38,7 +38,7 @@ describe("Socket Actions...", async () => {
             show: false
         }];
         const store = MockStore({ state: {} });
-        await store.dispatch(socketActions.hideModalAlertq("TUTORIAL"));
+        await store.dispatch(socketActions.hideModalAlert("TUTORIAL"));
         expect(store.getActions()).toEqual(expectedAction);
     });
 });

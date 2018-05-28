@@ -4,7 +4,18 @@ exports[`renders App without crashing 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Provider>
+  Symbol(enzyme.__unrendered__): <Provider
+    store={
+        Object {
+            "clearActions": [Function],
+            "dispatch": [Function],
+            "getActions": [Function],
+            "getState": [Function],
+            "replaceReducer": [Function],
+            "subscribe": [Function],
+          }
+    }
+>
     <Connect(App) />
 </Provider>,
   Symbol(enzyme.__renderer__): Object {
