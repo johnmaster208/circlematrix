@@ -32,22 +32,28 @@
     "devDependencies": {
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
+        "redux-mock-store": "^1.5.1",
         "sinon": "^5.0.10"
     },
     "jest": {
         "collectCoverageFrom": [
             "src/**/*.{js,jsx}",
-            "!<rootDir>/node_modules/",
-            "!<rootDir>/path/to/dir/"
+            "!src/**/index.{js,jsx}",
+            "!src/**/configureStore.js",
+            "!src/**/circleData.js",
+            "!src/{registerServiceWorker,SocketServer,setupTests,tempPolyfills}.js",
+            "!<rootDir>/node_modules/"
         ],
         "coverageThreshold": {
             "global": {
-                "branches": 90,
-                "functions": 90,
-                "lines": 90,
-                "statements": 90
+                "branches": 80,
+                "functions": 80,
+                "lines": 80,
+                "statements": 80
             }
         },
-        "coverageReporters": ["text"]
+        "coverageReporters": [
+            "text"
+        ]
     }
 }

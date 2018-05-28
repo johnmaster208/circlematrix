@@ -1,7 +1,7 @@
 // constants/index.js
 import keyMirror from "keymirror";
 
-export const APP_CONSTANTS = {
+export const APP_CONSTANTS = { 
   unSelectedFillColor: '#ddd',
   userSelectedFillColor: '#214699',
   socketSelectedFillColor: '#7ab3e2'
