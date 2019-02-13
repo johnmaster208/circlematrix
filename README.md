@@ -1,5 +1,5 @@
 # circlematrix
-
+[![Coverage Status](https://coveralls.io/repos/github/johnmaster208/circlematrix/badge.svg?branch=master)](https://coveralls.io/github/johnmaster208/circlematrix?branch=master)
 Demonstration of React + Redux + Websockets:
 
  * Users can select up to 10 circles from the board (and no more!)
