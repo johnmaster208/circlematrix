@@ -1,5 +1,6 @@
 # circlematrix
 
+[![Build Status](https://travis-ci.org/johnmaster208/circlematrix.svg?branch=master)](https://travis-ci.org/johnmaster208/circlematrix)
 [![Coverage Status](https://coveralls.io/repos/github/johnmaster208/circlematrix/badge.svg?branch=master)](https://coveralls.io/github/johnmaster208/circlematrix?branch=master)
 
 Demonstration of React + Redux + Websockets: 
