@@ -91,6 +91,9 @@
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
     ],
     "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/src/App.js?(x)"
+    ],
     "testURL": "http://localhost",
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
