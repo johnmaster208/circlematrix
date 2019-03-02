@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalBody, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { Circle } from 'react-shapes'
 import Icon from 'react-fontawesome';
 import PropTypes from 'prop-types';
