@@ -53,7 +53,7 @@
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.5.9",
     "webpack": "3.5.1",
-    "webpack-dev-server": "^3.1.11",
+    "webpack-dev-server": "3.0.0",
     "webpack-manifest-plugin": "1.2.1",
     "whatwg-fetch": "2.0.3"
   },
@@ -62,6 +62,7 @@
     "debug": "concurrently \"npm run server-debug\" \"node scripts/start.js\"",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
+    "client": "NODE_ENV=dev node ./scripts/start.js",
     "server": "node ./src/SocketServer.js",
     "server-debug": "node --inspect ./src/SocketServer.js"
   },

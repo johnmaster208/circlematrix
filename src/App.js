@@ -20,7 +20,7 @@ class App extends React.Component {
       socketCircleWasSelected, 
       socketCircleWasUnselected
     } = this.props;
-    this.socket = io('http://localhost:5000',{reconnection:false});
+    this.socket = io('http://localhost:5151',{reconnection:true});
     this.activateActionCircle = this.activateActionCircle.bind(this);
     this.onCloseAlertModal = this.onCloseAlertModal.bind(this);
     this.socket.on('pushUserSocketId', (id) => {getUserSocketId(id)} );

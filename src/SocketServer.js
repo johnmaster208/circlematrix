@@ -1,7 +1,7 @@
 
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5151;
 const server = app.listen(PORT);
 const io = require('socket.io').listen(server);
 console.log('SocketIO server listening to requests on port ' + PORT);
